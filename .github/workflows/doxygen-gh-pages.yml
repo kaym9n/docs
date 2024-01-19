@@ -12,7 +12,7 @@ jobs:
         github-token: ${{ secrets.GH_PAT }} # token with actions:read permissions on target repo
         repository: kaym9n/ROBOTIS-OP3-Demo
         run-id: 7581048488
-        name: 1180368719        
+        name: github-pages        
     - name: Display structure of downloaded files
       run: ls -al
         
