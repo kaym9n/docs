@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v4
       with:
-        name: github-pages
+        pattern: github-pages*
         github-token: ${{ secrets.GH_PAT }}
         repository: kaym9n/ROBOTIS-OP3-Demo
         path: ./build_doc/html
