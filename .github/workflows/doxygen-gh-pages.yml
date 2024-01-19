@@ -3,27 +3,31 @@ name: Download and Deploy
 # Controls when the workflow will run
 on: push
 
-jobs:
-
-  
+jobs:  
   get_asset:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: List Releases
-        run: gh release list --repo JanosGit/private-test
+        run: gh release list --repo kaym9n/ROBOTIS-OP3-Demo
         env:
           GITHUB_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
-
       - name: Fetch asset
-        run: gh release download --repo JanosGit/private-test 0.1.2
+        run: gh release download --repo kaym9n/ROBOTIS-OP3-Demo latest
         env:
           GITHUB_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
-
       - name: See what we downloaded
         run: ls
-
       - name: Inspect content
         run: cat hello.txt
+        
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: get_asset
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
