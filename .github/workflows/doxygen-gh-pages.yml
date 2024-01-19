@@ -7,18 +7,14 @@ jobs:
   get_asset:
     runs-on: ubuntu-latest
     steps:
-      - name: List Releases
-        run: gh release list --repo kaym9n/ROBOTIS-OP3-Demo
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Fetch asset
-        run: gh release download --repo kaym9n/ROBOTIS-OP3-Demo latest
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: See what we downloaded
-        run: ls
-      - name: Inspect content
-        run: cat hello.txt
+    - uses: actions/download-artifact@v4
+      with:
+        name: github-pages
+        github-token: ${{ secrets.GH_PAT }}
+        repository: kaym9n/ROBOTIS-OP3-Demo
+        path: ./build_doc/html
+    - name: Display structure of downloaded files
+      run: ls -R ./build_doc/html
         
   # Deployment job
   deploy:
