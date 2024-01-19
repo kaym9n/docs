@@ -12,9 +12,8 @@ jobs:
         pattern: github-pages*
         github-token: ${{ secrets.GH_PAT }}
         repository: kaym9n/ROBOTIS-OP3-Demo
-        path: ./build_doc/html
     - name: Display structure of downloaded files
-      run: ls -R ./build_doc/html
+      run: ls -al
         
   # Deployment job
   deploy:
